@@ -24,5 +24,16 @@ Simulação: Execute os scripts na pasta Abaqus_Scripts/ dentro do software Abaq
 Treinamento: Execute o MLP_Training_Pipeline.ipynb no Google Colab ou localmente. O script fará a carga dos dados, filtragem física, treinamento das redes e validação cruzada.
 Inferência: Carregue os modelos .pkl salvos para prever novos cenários balísticos instantaneamente.
 
+## 🔬 Notas Metodológicas e Limitações
+
+**1. Parâmetros de Iniciação de Dano (Johnson-Cook)**
+O modelo numérico no Abaqus engloba a dependência da triaxialidade de tensões e da taxa de deformação na iniciação do dano ($D_1$ a $D_5$). Dada a escassez de parâmetros dinâmicos de ruptura exatos para o lote específico de Aço A36 e a impraticabilidade de ensaios destrutivos dedicados, adotou-se um conjunto de constantes de dano fenomenológicas para aços estruturais (D1=0.14, D2=0.54, D3=-1.5, D4=0.014, D5=1.12) e um deslocamento à falha de $u_f = 0.0025$ m. O foco deste trabalho é a viabilidade do *pipeline* de *Active Learning*, utilizando um *Ground Truth* sintético com comportamentos não-lineares severos, e não a caracterização metalográfica do aço.
+
+**2. Matriz de Confusão vs. Validação Cruzada (K-Fold)**
+A matriz de confusão disponibilizada reflete o panorama global agregando todo o *dataset* (1500 amostras), evidenciando os 23 Falsos Negativos totais. A validação `StratifiedKFold` (10 partições) foi utilizada rigorosamente no treinamento para assegurar a consistência das métricas num domínio artificialmente enriquecido na fronteira de falha (devido ao *Active Learning*).
+
+**3. A Contagem de Fraturas no Active Learning**
+Na Fase 3, embora a rede preliminar previsse 50% de chance de ruptura para os novos casos selecionados, a simulação em Elementos Finitos resultou em uma proporção menor de falhas confirmadas (apenas 62 rupturas). Esse comportamento não é uma inconsistência, mas a própria justificativa do método: a injeção desses cenários limítrofes corrigiu o viés conservador da MLP inicial, forçando-a a retrair seu hiperplano e aprender o limite exato calculado pelo Abaqus.
+
 📄 Licença
 Este projeto está licenciado sob a Licença MIT — veja o arquivo LICENSE para detalhes.
