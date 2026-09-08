@@ -5,7 +5,7 @@ Repositório companion do artigo submetido ao SIGE: "Predição para Chapas de A
 Este projeto implementa um modelo substituto (Surrogate Model) baseado em Redes Neurais do tipo Multilayer Perceptron (MLP) para prever a integridade estrutural e a flecha máxima de chapas de aço ASTM A36 submetidas a detonações esféricas livres. O pipeline metodológico integra:
 
 Calibração FEM: Modelo Abaqus/Explicit calibrado com ensaios de campo reais.
-Amostragem Adaptativa (Active Learning): Geração de 1500 simulações em 3 fases, direcionando o esforço computacional para a fronteira de incerteza da ruptura (35%-65% e 45%-55%).
+Amostragem Adaptativa (Active Learning): Geração de 1500 simulações em 3 fases, direcionando o esforço computacional para a fronteira de incerteza da ruptura (45%-80% e 47.5%-52.5%).
 Arquitetura Bifurcada MLP: Um classificador (ruptura) e um regressor (flecha) independentes.
 
 📂 Estrutura do Repositório
